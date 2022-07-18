@@ -177,11 +177,10 @@ echo "::set-output name=num_changed::${num_changed}"
 if [ "${INPUT_GIT_PUSH}" = "true" ]; then
     git_commit
     git push
-else
-    if [ "${INPUT_FAIL_ON_DIFF}" = "true" ] && [ "${num_changed}" -ne 0 ]; then
-        echo "::error ::Uncommitted change(s) has been found!"
-        exit 1
-    fi
+fi
+if [ "${INPUT_FAIL_ON_DIFF}" = "true" ] && [ "${num_changed}" -ne 0 ]; then
+    echo "::error ::Terraform documentation change(s) has been found!"
+    exit 1
 fi
 
 exit 0
